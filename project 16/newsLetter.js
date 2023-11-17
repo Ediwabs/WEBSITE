@@ -12,10 +12,11 @@ function validateInputs()
     //Assume they are dangerous for now
     var fullname    = new String(document.MyForm.fullname.value);
     var email   = new String(document.MyForm.email.value);
+    var telephone   = new String(document.MyForm.telephone.value);
 
     //Check that the user inputs are not blank
     //JavaScript logical operator for OR : ||
-    if ( fullname.length<1 || email.length<1 )
+    if ( fullname.length<1 || email.length<1 || telephone.length<1)
     {
     FormErrors = "All fields are mandatory. Please complete the form.";
     SubmitForm = false;
@@ -32,6 +33,15 @@ var filter = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?
         FormErrors = "Your form contains invalid field entries. Please correct your form before submitting";
         SubmitForm = false;
      }
+
+ if (!filter.test(telephone))
+    {
+        FormErrors = "Your form contains invalid field entries. Please correct your form before submitting";
+        SubmitForm = false;
+     }
+
+
+
     }
     
     if (SubmitForm == false)
@@ -46,6 +56,9 @@ var filter = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?
         fullname = fullname.trim();
         email = email.replace(/[^a-z0-9_@.-]/gim,"");
         email = email.trim();
+        telephone = telephone.replace(/[0-9-]/gim,"");
+        telephone = telephone.trim();
+        
 
         //ready to submit
         document.MyForm.submit();
